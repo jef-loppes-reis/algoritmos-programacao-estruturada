@@ -6,19 +6,20 @@
 int main()
 {
 
-    int i=0, codTitulacaoProfessor=0, codIdadeAuluno=0;
-
+    // Variarives fora das Structs.
+    int i=0, codTitulacaoProfessor=0, codIdadeAuluno=0, codNomeProfessor=0;
+    // Instanciando a struct PROFESSOR;
     struct Professor
     {
         char nomeProfessor[50], matriculaProfessor[50], titulacaoProfessor[50];
     };
-
+    // Instanciando a struct ALUNO;
     struct Aluno
     {
         char nomeAluno[50], matriculaAluno[50], disciplinaAluno[50];
         int idade;
     };
-
+    // Instanciando a struct DISCIPLINA;
     struct Disciplina
     {
         char nomeDisciplina[50], codigoDisciplina[50], professorDisciplina[50];
@@ -29,6 +30,7 @@ int main()
     struct Aluno alu[TAM_ALUNO];
     struct Disciplina disc[TAM_DISCIPLINA];
 
+    // Iteracao sobre a constante TAM_PROFESSOR, para definir os atributos da struct PROFESSOR;
     for (i = 0; i < TAM_PROFESSOR; i++)
     {
         printf("\nDigite o nome do Professor_%d: ", i);
@@ -74,7 +76,7 @@ int main()
         fflush(stdin);
     }
 
-
+    // Iteracao sobre a constante TAM_ALUNO, para definir os atributos da struct ALUNO;
     for (i = 0; i < TAM_ALUNO; i++)
     {
         printf("\nDigite o nome do Aluno_%d: ", i);
@@ -93,11 +95,78 @@ int main()
         {
             printf("\nDigite a idade do aluno_%d: ", i);
             scanf("%d", &alu[i].idade);
+            fflush(stdin);
 
         } while (alu[i].idade < 16 && alu[i].idade > 26);
         
     }
+    // Clear no terminal;
+    system("cls");
+    // Imprime a lista de alunos cadastrados;
+    printf("### Alunos cadastrados ###\n");
+
+    for (i = 0; i < TAM_ALUNO; i++)
+    {
+        printf("\nAluno_%d; Nome: %s", i, alu[i].nomeAluno);
+        printf("\nAluno_%d; Matricula: %s", i, alu[i].matriculaAluno);
+        printf("\nAluno_%d; Disciplina: %s", i, alu[i].disciplinaAluno);
+        printf("\nAluno_%d; Idade: %d\n", i, alu[i].idade);
+        fflush(stdin);
+    }
+
+    // Iteracao sobre a constante TAM_DISCIPLINA, para definir os atributos da struct DISCIPLINA;
+    for (i = 0; i < TAM_DISCIPLINA; i++)
+    {
+        printf("\nDigite o nome da disciplina_%d", i);
+        scanf("%s", &disc[i].nomeDisciplina);
+        fflush(stdin);
+
+        printf("\nDigite o codigo da disciplina_%d", i);
+        scanf("%s", &disc[i].codigoDisciplina);
+        fflush(stdin);
+
+        do
+        {
+            printf("\n### Escolha o professor; (numero) ###");
+
+            for (i = 0; i < TAM_PROFESSOR; i++)
+            {
+                printf("\n%s", prof[i].nomeProfessor);
+            }
+
+            scanf("%d", &codNomeProfessor);
+            fflush(stdin);
+            
+        } while (codNomeProfessor != 1 && codNomeProfessor != 2 && codNomeProfessor != 3);
+        
+        switch (codNomeProfessor)
+        {
+        case 1:
+            strcpy(disc[i].professorDisciplina, prof[0].nomeProfessor);
+            break;
+        case 2:
+            strcpy(disc[i].professorDisciplina , prof[1].nomeProfessor);
+            break;
+        case 3:
+            strcpy(disc[i].professorDisciplina, prof[2].nomeProfessor);
+            break;
+        default:
+            break;
+        }
+    }
     
+    // Clear no terminal;
+    system("cls");
+    // Imprime a lista de alunos cadastrados;
+    printf("### Disciplinas cadastradas ###\n");
+
+    for (i = 0; i < TAM_DISCIPLINA; i++)
+    {
+        printf("\nDisciplina_%d; Nome: %s", i, disc[i].nomeDisciplina);
+        printf("\nDisciplina_%d; Codigo: %s", i, disc[i].codigoDisciplina);
+        printf("\nDisciplina_%d; Professor: %s", i, disc[i].professorDisciplina);
+        fflush(stdin);
+    }
 
     return 0;
 }
